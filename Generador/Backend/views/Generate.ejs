@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Generador de Canciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Canciones Guardadas</h4>
+            <ul id="songList" class="list-group">
+                <!-- Aquí se mostrarán las canciones guardadas -->
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h4>Generar Canción</h4>
+            <form id="songForm">
+                <div class="form-group">
+                    <label for="songText">Palabra Clave:</label>
+                    <input type="text" class="form-control" id="songText" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Generar</button>
+            </form>
+            <div id="result" class="mt-4">
+                <!-- Aquí se mostrará el resultado de la canción generada -->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>Ajustes</h4>
+            <div class="form-group">
+                <label for="temperatureSlider">Temperatura:</label>
+                <input type="range" class="form-control-range" id="temperatureSlider" min="0" max="1" step="0.1" value="0.5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/Generate.js"></script>
+</body>
+</html>
