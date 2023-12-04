@@ -15,9 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (newSongText !== '') {
           // Generar y mostrar la canción
-          const generatedSong = generateSong(newSongText, temperatureSlider.value);
-          displayGeneratedSong(generatedSong);
-
+          generateSong(newSongText, temperatureSlider.value);
           // Guardar la canción en la lista y en el local storage
           saveSong(newSongText);
           songText.value = '';
@@ -35,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 const generateSong = async (inputData, temperature) => {
-  const response = await fetch('/generate', {
+  await fetch('/generate', {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -43,18 +41,26 @@ const generateSong = async (inputData, temperature) => {
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ data: [inputData] }),
-  });
-  return await 'Cancion generada: ' + response.json().prediction;
+    body: JSON.stringify({ data: [inputData, temperature] }),
+  }).then(response => response.json())
+  .then(data => displayGeneratedSong(data));
 }
 
 
-  function displayGeneratedSong(song) {
-      const resultParagraph = document.createElement('p');
-      resultParagraph.textContent = song;
-      resultDiv.innerHTML = ''; // Limpiar resultados anteriores
-      resultDiv.appendChild(resultParagraph);
-  }
+function displayGeneratedSong(song) {
+  console.log(song);
+
+  resultDiv.innerHTML = '';
+
+  const paragraphs = song.split('\n');
+
+  paragraphs.forEach((paragraph) => {
+    const resultParagraph = document.createElement('p');
+    resultParagraph.textContent = paragraph;
+    resultDiv.appendChild(resultParagraph);
+  });
+}
+
 
   function saveSong(song) {
       const listItem = document.createElement('li');

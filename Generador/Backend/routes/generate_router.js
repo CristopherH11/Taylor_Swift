@@ -10,7 +10,7 @@ let model;
 
 async function loadModel() {
     try {
-        model = await tf.loadLayersModel('file:///Users/angel/Documents/UCR/II CICLO 2023/Web/proyecto2/Generador-Web/Outputs/taylor_swift_js_v2/model.json'); // Only Total Paths
+        model = await tf.loadLayersModel('file:///home/cristopher/Documents/Taylor_Swift/Outputs/taylor_swift_js_v2/model.json'); // Only Total Paths
     } catch (error) {
         console.error('Error loading model:', error);
     }
@@ -35,15 +35,14 @@ router.post('/', (req, res) => {
   }
 
   const inputData = req.body.data;
-  console.log(req.body);
   if (!Array.isArray(inputData)) {
       return res.status(400).send('Input data must be an array');
   }
   const tensor = tf.tensor(inputData);
-  console.log('Input Data:', inputData);
+  // console.log('Input Data:', inputData);
   const fs = require('fs');
 
-  const text = fs.readFileSync('C:/Users/angel/Documents/UCR/II CICLO 2023/Web/proyecto2/Generador-Web/Outputs/choruses.txt', 'utf-8');
+  const text = fs.readFileSync('/home/cristopher/Documents/Taylor_Swift/Outputs/choruses.txt', 'utf-8');
 
   const vocabSet = new Set(text);
   const vocab = Array.from(vocabSet).sort();
@@ -55,7 +54,7 @@ router.post('/', (req, res) => {
 
   const idx2char = vocab;
 
-  generateText(model, 'Call me', 0.5, char2idx, idx2char).then(result => console.log(result));
+  generateText(model, inputData[0], parseFloat(inputData[1]), char2idx, idx2char).then(result => res.json(result));
 });
 
 async function generateText(model, startString, t, char2idx, idx2char) {
@@ -83,7 +82,7 @@ async function generateText(model, startString, t, char2idx, idx2char) {
       textGenerated.push(idx2char[predictedId]);
     }
   
-    return startString + textGenerated.join('');
+    return startString + " " +textGenerated.join('');
 }
 
 module.exports = router;

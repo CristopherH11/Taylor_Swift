@@ -23,7 +23,7 @@ app.use('/generate', generateRouter);
 
 // Login 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../Frontend/Login/login.html'));
+  res.sendFile(path.join(__dirname, '../Frontend/Login/Login.html'));
 });
 
 app.listen(PORT, () => {
