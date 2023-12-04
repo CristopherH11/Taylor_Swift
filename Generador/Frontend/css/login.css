@@ -1,0 +1,19 @@
+.custom-background {
+  background-color: #343541 !important;
+}
+
+.custom-gradient {
+  background: #3e1f47;
+
+  background: -webkit-linear-gradient(
+    to right,
+    rgb(0, 100, 102),
+    rgb(77, 25, 77)
+  );
+
+  background: linear-gradient(to right, rgb(0, 100, 102), rgb(77, 25, 77));
+}
+
+dotlottie-player {
+  margin: 0 auto;
+}
