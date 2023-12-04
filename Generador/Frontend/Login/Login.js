@@ -14,7 +14,7 @@ function login() {
     if (!userExists) {
       saveToken(username);
     }
-    localStorage.setItem("userinfo_id", username);
+    localStorage.setItem("user_id", username);
     window.location.href = '/generate'
   } else {
   }

@@ -10,7 +10,7 @@ let model;
 
 async function loadModel() {
     try {
-        model = await tf.loadLayersModel('file:///home/cristopher/Documents/Taylor_Swift/Outputs/taylor_swift_js_v2/model.json'); // Only Total Paths
+        model = await tf.loadLayersModel('file:///home/cristopher/Documents/Taylor_Swift/Outputs/taylor_swift_js/model.json'); // Only Total Paths
     } catch (error) {
         console.error('Error loading model:', error);
     }
