@@ -8,7 +8,7 @@ const generateRouter = require('./routes/generate_router.js');
 
 const app = express();
 
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, '../Frontend/views'));
 app.set('view engine', 'ejs');
 // Middleware to parse data from forms HTML of requests
 app.use(express.urlencoded({ extended: false }));
