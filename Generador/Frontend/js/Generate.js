@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const user = localStorage.getItem('userinfo_id');
   var newSongText;
 
-  // Cargar canciones guardadas al iniciar
   loadSavedSongs();
 
   songForm.addEventListener('submit', function (event) {
@@ -16,11 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
       newSongText = songText.value.trim();
 
       if (newSongText !== '') {
-          // Generar y mostrar la canción
-          generateSong(newSongText, temperatureSlider.value);
-          saveSong(newSongText);
+        generateSong(newSongText, temperatureSlider.value);
+        saveSong(newSongText);
 
-          songText.value = '';
+        songText.value = '';
 
       }
   });
@@ -30,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       storedSongs.forEach(song => {
           const listItem = document.createElement('li');
           listItem.classList.add('list-group-item');
+          listItem.classList.add('clickable');
           listItem.textContent = song;
           songList.appendChild(listItem);
       });
@@ -70,6 +69,7 @@ function displayGeneratedSong(song) {
   function saveSong(song) {
       const listItem = document.createElement('li');
       listItem.classList.add('list-group-item');
+      listItem.classList.add('clickable');
       listItem.textContent = song;
       songList.appendChild(listItem);
 
@@ -86,12 +86,15 @@ function displayGeneratedSong(song) {
   
       const selectedSongContent = localStorage.getItem(user + selectedSongTitle);
   
-      console.log(selectedSongContent);
-  
       resultDiv.innerHTML = '';
-      const resultParagraph = document.createElement('p');
-      resultParagraph.textContent = selectedSongContent;
-      resultDiv.appendChild(resultParagraph);
+
+      const paragraphs = selectedSongContent.split('\n');
+
+      paragraphs.forEach((paragraph) => {
+        const resultParagraph = document.createElement('p');
+        resultParagraph.textContent = paragraph;
+        resultDiv.appendChild(resultParagraph);
+      });
     }
   });
 
