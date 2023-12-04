@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const songList = document.getElementById('songList');
   const resultDiv = document.getElementById('result');
   const temperatureSlider = document.getElementById('temperatureSlider');
+  const user = localStorage.getItem('userinfo_id');
 
   // Cargar canciones guardadas al iniciar
   loadSavedSongs();
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function loadSavedSongs() {
-      const storedSongs = JSON.parse(localStorage.getItem('userSongs')) || [];
+      const storedSongs = JSON.parse(localStorage.getItem(user + 'Songs')) || [];
       storedSongs.forEach(song => {
           const listItem = document.createElement('li');
           listItem.classList.add('list-group-item');
@@ -68,9 +69,8 @@ function displayGeneratedSong(song) {
       listItem.textContent = song;
       songList.appendChild(listItem);
 
-      // TODO: Conectar con auth
-      const storedSongs = JSON.parse(localStorage.getItem('userSongs')) || [];
+      const storedSongs = JSON.parse(localStorage.getItem(user + 'Songs')) || [];
       storedSongs.push(song);
-      localStorage.setItem('userSongs', JSON.stringify(storedSongs));
+      localStorage.setItem(user + 'Songs', JSON.stringify(storedSongs));
   }
 });
