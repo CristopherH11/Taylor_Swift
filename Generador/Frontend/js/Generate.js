@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const resultDiv = document.getElementById('result');
   const temperatureSlider = document.getElementById('temperatureSlider');
   const user = localStorage.getItem('userinfo_id');
+  var newSongText;
 
   // Cargar canciones guardadas al iniciar
   loadSavedSongs();
@@ -12,14 +13,15 @@ document.addEventListener('DOMContentLoaded', function () {
   songForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const newSongText = songText.value.trim();
+      newSongText = songText.value.trim();
 
       if (newSongText !== '') {
           // Generar y mostrar la canción
           generateSong(newSongText, temperatureSlider.value);
-          // Guardar la canción en la lista y en el local storage
           saveSong(newSongText);
+
           songText.value = '';
+
       }
   });
 
@@ -60,6 +62,8 @@ function displayGeneratedSong(song) {
     resultParagraph.textContent = paragraph;
     resultDiv.appendChild(resultParagraph);
   });
+
+  localStorage.setItem(user + newSongText, song);
 }
 
 
@@ -73,4 +77,24 @@ function displayGeneratedSong(song) {
       storedSongs.push(song);
       localStorage.setItem(user + 'Songs', JSON.stringify(storedSongs));
   }
+
+  songList.addEventListener('click', function (event) {
+    const clickedItem = event.target;
+  
+    if (clickedItem.tagName === 'LI') {
+      const selectedSongTitle = clickedItem.textContent.trim();
+  
+      const selectedSongContent = localStorage.getItem(user + selectedSongTitle);
+  
+      console.log(selectedSongContent);
+  
+      resultDiv.innerHTML = '';
+      const resultParagraph = document.createElement('p');
+      resultParagraph.textContent = selectedSongContent;
+      resultDiv.appendChild(resultParagraph);
+    }
+  });
+
 });
+
+
